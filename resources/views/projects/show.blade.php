@@ -7,10 +7,13 @@
 @section('content')
 
 <div class="row">
-    <div class="col-6 text-center p-4">
+    <div class="col-4 text-center p-4">
         {{$project->lang}}
     </div>
-    <div class="col-6 text-center p-4">
+    <div class="col-4 text-center p-4">
+        {{$project->type->name}}
+    </div>
+    <div class="col-4 text-center p-4">
         {{$project->team ? 'Progetto in collaborazione con un team ' : 'Progetto individuale'}}
     
 

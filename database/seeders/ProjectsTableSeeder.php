@@ -17,6 +17,7 @@ class ProjectsTableSeeder extends Seeder
         $newProject = new Project();
 
         $newProject->name ='Portfolio';
+        $newProject->type_id= 1;
         $newProject->lang = 'PHP';
         $newProject->description = 'Progetto per creare un applicativo dove raccogliere e mostrare tutti i miei progetti';
         $newProject->team = false;

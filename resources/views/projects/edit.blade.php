@@ -13,25 +13,40 @@
         @method('PUT')
 
 
-        <div class="col-md-4">
+        <div class="col-md-6">
           <label for="name" class="form-label">Nome Progetto</label>
           <input type="text" class="form-control" id="name" name="name" value="{{$project->name}}">
         </div>
-        <div class="col-md-4">
+
+        <div class="col-md-6">
           <label for="lang" class="form-label">Linguaggio utilizzato </label>
           <input type="text" class="form-control" id="lang" name="lang" value="{{$project->lang}}">
         </div>
-        <div class="col-md-4">
+
+        <div class="col-md-6">
             <label for="team" class="form-label">Team di sviluppo</label>
           <select name="team" id="team" class="form-select">
             <option value="1" {{ old('team', $project->team) == '1' ? 'selected' : '' }}>Lavoro di gruppo</option>
             <option value="0" {{ old('team', $project->team) == '0' ? 'selected' : '' }}>Progetto individuale</option>
           </select>
-          </div>
+        </div>
+
+        <div class="col-md-6">
+            <label for="type_id" class="form-label">Tipo di progetto</label>
+          <select name="type_id" id="type_id" class="form-select">
+            @foreach ($types as $type)
+            <option  value="{{$type->id}}" {{$project->type_id == $type->id ? 'selected':'' }}>{{$type->name}}</option>
+                
+            @endforeach
+
+          </select>
+        </div>
+
         <div class="col-12">
           <label for="description" class="form-label">Descrizione del progetto </label>
          <textarea name="description" id="description"  rows="5" class="form-control">{{$project->description}}</textarea>
         </div>
+
         <div class="col-2 ">
             <input type="submit" value="Salva" class="btn btn-primary ">
 
