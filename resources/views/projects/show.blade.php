@@ -7,17 +7,31 @@
 @section('content')
 
 <div class="row">
-    <div class="col-4 text-center p-4">
+    {{-- <div class="col-12 text-center p-4">
         {{$project->lang}}
-    </div>
-    <div class="col-4 text-center p-4">
+    </div> --}}
+
+    <div class="col-6 text-center p-4">
         {{$project->type->name}}
     </div>
-    <div class="col-4 text-center p-4">
+
+    <div class="col-6 text-center p-4">
         {{$project->team ? 'Progetto in collaborazione con un team ' : 'Progetto individuale'}}
+    </div>
+
+    <div class="col-12 text-center p-4 ">
+            Tecnologie: 
+            @forelse ($project->technologies as $technology)
+            <span class="badge " style="background-color: {{$technology->color}}">{{$technology->name}}</span>
+                
+            @empty
+            nessuna tecnologia usata.
+                
+            @endforelse
     
 
     </div>
+
     <div class="col-12 text-center p-4">
         {{$project->description}}
     </div>

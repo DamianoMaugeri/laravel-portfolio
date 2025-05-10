@@ -24,7 +24,14 @@
                     {{ $project->name }}
                 </div>
                 <div class="card-body text-center">
-                    <div>{{ $project->lang }}</div>
+                    
+                    @forelse ($project->technologies as $technology)
+                    <span class="badge " style="background-color: {{$technology->color}}">{{$technology->name}}</span>
+                        
+                    @empty
+                    nessuna tecnologia usata.
+                        
+                    @endforelse
                 </div>
             </div>
         </a>

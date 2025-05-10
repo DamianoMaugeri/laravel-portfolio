@@ -18,10 +18,11 @@
           <input type="text" class="form-control" id="name" name="name" value="{{$project->name}}">
         </div>
 
-        <div class="col-md-6">
+        
+    {{-- <div class="col-md-6">
           <label for="lang" class="form-label">Linguaggio utilizzato </label>
           <input type="text" class="form-control" id="lang" name="lang" value="{{$project->lang}}">
-        </div>
+        </div> --}}
 
         <div class="col-md-6">
             <label for="team" class="form-label">Team di sviluppo</label>
@@ -41,6 +42,21 @@
 
           </select>
         </div>
+
+        
+        <div class="col-md-12 d-flex flex-wrap gap-3">
+
+            @foreach ($technologies as $technology)
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="technologies[]" value="{{$technology->id}}" id="technology-{{$technology->id}}" {{$project->technologies->contains($technology) ? 'checked': ''}}>
+                <label class="form-check-label" for="technology-{{$technology->id}}">{{$technology->name}}</label>
+            </div>
+                
+            @endforeach
+
+
+        </div>
+
 
         <div class="col-12">
           <label for="description" class="form-label">Descrizione del progetto </label>

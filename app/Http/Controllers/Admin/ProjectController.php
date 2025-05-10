@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\Technology;
 use App\Models\Type;
 use Illuminate\Http\Request;
 
@@ -25,9 +26,13 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        //prendiamo tutti i types
         $types= Type::all();
-        return view("projects.create", compact('types'));
+
+        //prendiamo tutte le technologies
+        $technologies= Technology::all();
+
+        return view("projects.create", compact('types','technologies'));
     }
 
     /**
@@ -42,12 +47,17 @@ class ProjectController extends Controller
         $newProject= new Project();
 
         $newProject->name=$data['name'];
-        $newProject->lang=$data['lang'];
+       // $newProject->lang=$data['lang'];
         $newProject->description=$data['description'];
         $newProject->team= (bool) $data['team'];
         $newProject->type_id=$data['type_id'];
 
+
         $newProject->save();
+
+        //dopo aver salvato
+
+        $newProject->technologies()->attach($data['technologies']);
 
 
         return  redirect()-> route('projects.index');
@@ -60,7 +70,7 @@ class ProjectController extends Controller
     {
 
         //
-  
+        
         return view("projects.show", compact('project'));
 
     }
@@ -72,7 +82,10 @@ class ProjectController extends Controller
     {
         //
         $types= Type::all();
-        return view("projects.edit", compact('project','types'));
+
+        $technologies= Technology::all();
+
+        return view("projects.edit", compact('project','types','technologies'));
 
 
 
@@ -87,12 +100,19 @@ class ProjectController extends Controller
         $data= $request->all();
 
         $project->name = $data["name"];
-        $project->lang = $data["lang"];
+       // $project->lang = $data["lang"];
         $project->description = $data["description"];
         $project->team = (bool) $data["team"];
         $project->type_id = $data['type_id'];
 
         $project->update();
+        // dopo l'update facciamo il sync ma facciamo un controllo che l'array non sia vuoto
+
+        if ($request->has('technologies')) $project->technologies()->sync($data['technologies']);
+
+        else $project->technologies()->detach();
+
+
 
         return  redirect()-> route('projects.index');
  
